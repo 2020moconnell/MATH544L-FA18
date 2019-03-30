@@ -1,0 +1,42 @@
+Maggie O'Connell
+MATH 544-002
+HW6
+
+a = [1,-8,-7,5;0,0,-3,2;1,-8,-10,7];
+
+b = [4;-3;1];
+
+[xp,xs] = csolve2(a,b)
+The rank of the coefficient matrix is 2
+Pivot variables: 	 1	 3
+Free variables: 	 2	 4
+xp =
+
+   11.0000
+         0
+    1.0000
+         0
+
+
+xs =
+
+   19.0000   10.6667
+    1.0000         0
+    1.0000    1.6667
+         0    1.0000
+
+diary off
+----------------------------------------------------------
+function [xp,xs] = csolve2(A,b)
+    xp = zeros(size(A,2),1);
+    [R, pivot, free] = csolve(A);
+    pA = A(:,pivot);
+    tempa = pA\b;
+    xp(pivot)=tempa;
+    xs = zeros(size(A,2), length(free));
+    for i = 1:length(free)
+        tempb = b - A(:,free(i));
+        xs(pivot,i) = pA\tempb;
+        xs(free(i),i) = 1;
+    end
+end

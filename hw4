@@ -1,0 +1,49 @@
+Maggie O'Connell
+544L-002
+
+(1)
+A=[1,2;3,4;5,6];
+b=[1;2;3];
+mySolve(A,b)
+Error: A is not a square matrix
+
+(2)
+A=[1,2;3,4];
+b=[1,2];
+mySolve(A,b)
+Error: b must be a column vector
+
+(3)
+b=[1;2;3;4];
+mySolve(A,b)
+Error: must have compatible dimensions
+
+(4)
+b=[1;2];
+x = mySolve(A,b);
+A*x
+
+ans =
+
+     1
+     2
+--------------------------------------------------
+function x = mySolve(A,b)
+[m,n] = size(A);
+[r,c] = size(b);
+if (m==n)
+    if (c==1)
+        if(n==r)
+            [L,U] = MYLU(A);
+            y = forwards(L,b);
+            x = backwards(U,y);
+        else
+            disp('Error: must have compatible dimensions');
+        end
+    else
+        disp('Error: b must be a column vector');
+    end
+else
+    disp('Error: A is not a square matrix');
+end
+end

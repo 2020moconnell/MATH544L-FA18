@@ -1,0 +1,46 @@
+Maggie O'Connell
+MATH 544L - 002
+12/03/18
+
+function A = feuler2(N) 
+    h = (5 - 0)/N; %h is the step size 
+    t=0:h:5; %t is a vector containing N+1 equally spaced points over [0,5] 
+    u1 = zeros(1,4); %store the numerical solution in u1 
+    u1(1)=0;
+    u1(2) = u1(1)+h*(2+2*t(1))*exp(t(1)); 
+    u1(3) = u1(2)+h*(2+2*t(2))*exp(t(2)); 
+    u1(4) = u1(3)+h*(2+2*t(3))*exp(t(3)); 
+    u = 2*t.*exp(t); %this is the true solution 
+    plot(t, u1, 'r-o',t,u,'b-.'); % graph numerical & true solution together 
+    legend('numerical solution', 'true solution'); 
+    title(['N=', int2str(N)]); 
+    max(abs(u - u1)) %find the maximum error
+end
+
+-------------------------------------------------------------------------------------
+
+feuler(10)
+
+ans =
+
+  401.7652
+
+feuler(20)
+
+ans =
+
+  211.5832
+
+feuler(100)
+
+ans =
+
+   44.0419
+
+feuler(1000)
+
+ans =
+
+    4.4431
+
+diary off

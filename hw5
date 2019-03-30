@@ -1,0 +1,39 @@
+Maggie O'Connell
+MATH 544L-002
+HW5
+
+a = [1,-8,-7,5;0,0,-3,2;1,-8,-10,7]
+
+[R,pivot,free] = csolve(a)
+The rank of the coefficient matrix is 2
+Pivot variables: 	 1	 3
+Free variables: 	 2	 4
+
+diary off
+
+-------------------------------------
+
+function [R,pivot,free] = csolve(A)
+[m,n] = size(A);
+pivot = [];
+free = 1:1:n;
+R = rref(A);
+for i = 1:m
+    for j = 1:n
+        if R(i,j) == 1
+            pivot = [pivot,j];
+            break;
+        end
+    end
+end
+free(pivot) = '';
+fprintf('The rank of the coefficient matrix is ')
+fprintf('%d',length(pivot))
+fprintf('\nPivot variables: ')
+for a=1:length(pivot) 
+    fprintf('\t %d',pivot(a))
+end
+fprintf('\nFree variables: ')
+for b=1:length(free) 
+    fprintf('\t %d',free(b))
+end
